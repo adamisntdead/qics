@@ -1,5 +1,99 @@
-# QICS.js
+# Qics - _Quantum Idealistic Computer Simulator_
 
-_Quantum Idealistic Computer Simulator_
+[![GitHub issues](https://img.shields.io/github/issues/adamisntdead/qics.svg)](https://github.com/adamisntdead/qics/issues)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/adamisntdead/qics/master/LICENSE)
+[![Travis](https://img.shields.io/travis/adamisntdead/qics.svg)]()
+[![npm](https://img.shields.io/npm/v/qics.svg)]()
 
-TODO: Write This.
+Qics is an Idealistic, Quantum Computer Simulation Library.
+It works by holding a Quantum Register as a Matrix,
+and then multiplying that against various
+Gate Matrices.
+For more information about the working,
+see the `src` directory for the source code,
+or see `examples/node.js` or the __Usage__ Section for information
+on the usage of the module.
+
+***
+
+### Features
+* A ['Universally Complete'](https://en.wikipedia.org/wiki/Quantum_gate#Universal_quantum_gates),  [Quantum Circuit](https://en.wikipedia.org/wiki/Quantum_circuit) Based Simulator
+* Gate Expansion Function (To make a single qubit gate work on a register with multiple qubits)
+* Relatively Simple To Use
+
+***
+
+### Usage
+Currently the library is available using Node.js and NPM.
+To install the module, use the command:
+```shell
+npm install qics
+```
+
+Then you are able to use the module.
+When it's installed, _Qics_ exposes two classes,
+`qics.Register` and `qics.gates`.
+
+`qics.Register` is the main class, and is the basis of
+the simulator.
+It is used like any other class using the `new` keyword.
+Once initiated, there is a number of methods, see below or
+the Documentation (To be written).
+
+`qics.gates` exposes all of the single qubit gates as 2D arrays.
+It also has some static methods, such as `generateGate()`.
+Again, see the documentation.
+
+__Example simulation:__
+```javascript
+// Import the module
+const qics = require('qics');
+
+// Create a new Quantum Register with 3 Qubits
+const reg = new qicks.Register(3);
+
+// Apply some gates.
+// Hadamard Gate
+reg.applyGate('H', 1);
+// CNOT Gate, with control as qubit 1, and the
+// target as qubit 3
+reg.applyGate('CNOT', 1, 3) ;
+
+// Now measure the register. Should return either "000" or "101"
+console.log(reg.measure());
+```
+
+***
+
+### Documentation
+
+_TODO: Write this section, and the documentation_
+
+***
+
+### Build
+First you need to clone the repo from github:
+```shell
+git clone git://github.com/adamisntdead/qics.git
+cd qics
+```
+
+Then install the dependencies:
+```shell
+npm install
+```
+Then you can run the build script:
+```shell
+npm run build
+```
+This will build the module, and output to the `dist` folder.
+If you want to build for clint side (i.e. in the browser), run
+`npm run build:all` and then it will output _qics.js_ and _qics.min.js_ to the `dist` folder.
+
+### Tests
+To run the test for this module, after cloning and installing,
+run:
+```shell
+npm run test
+```
+And it will run all of the tests.

@@ -1,7 +1,7 @@
 {
   "name": "qics",
-  "version": "1.0.0",
-  "description": "Library Description",
+  "version": "1.0.1",
+  "description": "A Javascript Idealistic Quantum Computer Simulation Library",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
