@@ -57,7 +57,7 @@ __Example simulation:__
 const qics = require('qics');
 
 // Create a new Quantum Register with 3 Qubits
-const reg = new qicks.Register(3);
+const reg = new qics.Register(3);
 
 // Apply some gates.
 // Hadamard Gate
