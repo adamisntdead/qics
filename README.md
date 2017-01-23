@@ -1,5 +1,7 @@
 # Qics - _Quantum Idealistic Computer Simulator_
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/adamisntdead/qics.svg)](https://greenkeeper.io/)
+
 [![GitHub issues](https://img.shields.io/github/issues/adamisntdead/qics.svg)](https://github.com/adamisntdead/qics/issues)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/adamisntdead/qics/master/LICENSE)
 [![Travis](https://img.shields.io/travis/adamisntdead/qics.svg)](https://travis-ci.org/adamisntdead/qics)
