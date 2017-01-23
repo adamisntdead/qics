@@ -1,0 +1,17 @@
+<!doctype html>
+<head>
+  <title>Qics Example</title>
+</head>
+<body>
+<p id="a"></p>
+<script src="../dist/qics.min.js"></script>
+<script>
+  var qureg = new qics.Register(3);
+
+  qureg.applyGate('H', 1);
+  qureg.applyGate('CNOT', 1, 3);
+
+  var a = document.getElementById('a');
+  a.innerHTML = qureg.measure();
+</script>
+</body>
