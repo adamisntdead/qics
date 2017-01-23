@@ -76,7 +76,12 @@ This library is documented using Inline Prose Comments, and then generated using
 The documentation is just source code comments, but the source isn't too complex, and the functions
 are quite clear to use.
 
-__To read the docs, Clone this repo and check out the `docs` folder!__
+__To read the docs, Checkout [Here!](https://adamisntdead.github.io/qics/)__
+
+To deploy the docs to the github pages, run
+```shell
+git subtree push --prefix docs origin gh-pages
+```
 ***
 
 ### Build
