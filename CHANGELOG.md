@@ -1,5 +1,11 @@
 # Changelog
 
+### 23/01/17 - Version 1.0.2
+ - Change to standard Math.js module
+ - Add Docco Documentation
+ - Comment Out Source Code
+ - Add builds for the browser in the `dist` folder
+
 ### 22/01/17 - Version 1.0.1
  - Fix Test Errors for Node < 5
 

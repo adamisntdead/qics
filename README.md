@@ -20,6 +20,7 @@ on the usage of the module.
 * A ['Universally Complete'](https://en.wikipedia.org/wiki/Quantum_gate#Universal_quantum_gates),  [Quantum Circuit](https://en.wikipedia.org/wiki/Quantum_circuit) Based Simulator
 * Gate Expansion Function (To make a single qubit gate work on a register with multiple qubits)
 * Relatively Simple To Use
+* Inline Documentation with Docco
 
 ***
 
@@ -29,6 +30,10 @@ To install the module, use the command:
 ```shell
 npm install qics
 ```
+(_NOTE: Works with Node.js Versions >= 4_)
+
+If you want to use this in the browser, just add the `qics.js` or `qics.min.js`
+from the `dist` folder
 
 Then you are able to use the module.
 When it's installed, _Qics_ exposes two classes,
@@ -38,7 +43,7 @@ When it's installed, _Qics_ exposes two classes,
 the simulator.
 It is used like any other class using the `new` keyword.
 Once initiated, there is a number of methods, see below or
-the Documentation (To be written).
+the Documentation.
 
 `qics.gates` exposes all of the single qubit gates as 2D arrays.
 It also has some static methods, such as `generateGate()`.
@@ -67,8 +72,11 @@ console.log(reg.measure());
 
 ### Documentation
 
-_TODO: Write this section, and the documentation_
+This library is documented using Inline Prose Comments, and then generated using Docco.
+The documentation is just source code comments, but the source isn't too complex, and the functions
+are quite clear to use.
 
+__To read the docs, Clone this repo and check out the `docs` folder!__
 ***
 
 ### Build
@@ -86,8 +94,8 @@ Then you can run the build script:
 ```shell
 npm run build
 ```
-This will build the module, and output to the `dist` folder.
-If you want to build for clint side (i.e. in the browser), run
+This will build the module, and output to the `lib` folder.
+If you want to build for client side (i.e. in the browser), run
 `npm run build:all` and then it will output _qics.js_ and _qics.min.js_ to the `dist` folder.
 
 ### Tests

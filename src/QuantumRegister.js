@@ -1,8 +1,10 @@
-const math = require('./math/math');
+const math = require('mathjs');
 const weighted = require('weighted');
 const gates = require('./gates');
 
 class Register {
+	// This is the constructor for the Register, it takes a parameter
+	// `numQubits` which is the number of Qubits in the register
 	constructor(numQubits) {
 		this.numQubits = numQubits;
 		// The number of amplitudes needed is 2^n, Where N is the number of qubits.
@@ -17,10 +19,19 @@ class Register {
 		this.measured = false;
 	}
 
+	// Apply a gate to the register.
+	// The parameters, `gate` is a string with the name of the gate from the
+	// gates class. `qubit1` is the place in the register of the qubit the gate
+	// is being applied to. `qubit2` is, if a CNOT Gate is being used, its the
+	// target qubit, and qubit1 is the control.
 	applyGate(gate, qubit1, qubit2 = -1) {
 		if (this.measured) {
+			// If it has already been measured, then you cannot apply a gate, so an
+			// Error will be thrown
 			throw new Error('Cannot Apply Gate to a Measured Quantum Register');
 		} else {
+			// Get the gate from the generateGates function, and then multiply the
+			// amplitude vector against it
 			const gateMatrix = gates.generateGate(gate,
 				this.numQubits,
 				qubit1,
@@ -28,8 +39,9 @@ class Register {
 			this.amplitudes = math.multiply(this.amplitudes, gateMatrix);
 		}
 	}
-
+	// Measure the qubit register
 	measure() {
+		// If it has already been measured, just return that value
 		if (this.measured) {
 			return this.value;
 		}

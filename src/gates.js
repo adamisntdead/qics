@@ -1,6 +1,6 @@
-const math = require('./math/math');
+const math = require('mathjs');
 
-// Complex number i and negI (-i) for easy access
+// Complex number i and -i for easy access
 const i = math.complex(0, 1);
 const negI = math.complex(0, -1);
 
@@ -87,19 +87,23 @@ class gates {
   ################################################# */
   static generateGate(gate, numQubits, qubit1, qubit2 = 1) {
     if (gate === 'CNOT') {
+      // Set the control and target qubits
       const control = qubit1;
       const target = qubit2;
 
+      // Grab the gates now for easy access in the function
       const identity = math.eye(2);
       const X = this.X;
-      // NaN is the C from the Multi Qubit Gate generation
-      // Formula.
+
+      // This matrix is the 'Control Matrix'. At the end of the gate generation,
+      // the NaN's positions will be evaluated to figure out if it should be a
+      // a 0 or a 1
       const C = [
         [NaN, 0],
         [0, 1]
       ];
 
-      // Turn the gate order into an array
+      // Turn the gate order into an array, so that it can be reduced later.
       let gateOrder = [];
       for (let i = 1; i <= numQubits; i++) {
         if (i === control) {
@@ -111,14 +115,19 @@ class gates {
         }
       }
 
-      // Generate the new gate then replace the
-      // NaNs to Id gates, if they are in the center.
+
+      // Now the gateOrder array is taken and reduced using the
+      // 'Kronecker Product'
       let newGate = gateOrder.reduce((a, b) => math.kron(a, b));
 
+      // This needs to now be converted into an array if it is
+      // returned from math.js as a matrix
       if (math.typeof(newGate) === 'Matrix') {
         newGate = newGate.toArray();
       }
 
+      // Loop through the new matrix and if the NaN's are in the
+      // center, then replace with a 0, otherwise, replace with a 1
       for (let i = 0; i < newGate.length; i++) {
         for (let j = 0; j < newGate[i].length; j++) {
           if (math.isNaN(newGate[i][j])) {
@@ -130,11 +139,15 @@ class gates {
           }
         }
       }
+      // Return the expanded gate.
       return newGate;
     } else {
+      // Put the gates here for easy access
       const identity = math.eye(2);
       const mainGate = this[gate];
 
+      // Again, Turn the gate order into an array, so that it can be
+      // reduced later.
       let gateOrder = [];
 
       for (let i = 1; i <= numQubits; i++) {
@@ -145,6 +158,7 @@ class gates {
         }
       }
 
+      // Reduce and return the expanded gate.
       return gateOrder.reduce((a, b) => math.kron(a, b));
     }
   }

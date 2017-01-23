@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>gates.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="QuantumRegister.html">
+                  QuantumRegister.js
+                </a>
+              
+                
+                <a class="source" href="gates.html">
+                  gates.js
+                </a>
+              
+                
+                <a class="source" href="helper.html">
+                  helper.js
+                </a>
+              
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>gates.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mathjs'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>Complex number i and -i for easy access</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> i = math.complex(<span class="hljs-number">0</span>, <span class="hljs-number">1</span>);
+<span class="hljs-keyword">const</span> negI = math.complex(<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>);
+
+
+<span class="hljs-comment">/* #################################################
+#                    Gates                         #
+################################################# */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">gates</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Pauli-X / Not Gate</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> get X() {
+    <span class="hljs-keyword">return</span> [
+      [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>],
+      [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>]
+    ];
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Pauli-Y Gate</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> get Y() {
+    <span class="hljs-keyword">return</span> [
+      [<span class="hljs-number">0</span>, negI],
+      [i, <span class="hljs-number">0</span>]
+    ];
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Pauli-Z Gate</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> get Z() {
+    <span class="hljs-keyword">return</span> [
+      [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+      [<span class="hljs-number">0</span>, <span class="hljs-number">-1</span>]
+    ];
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Hadamard Gate</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> get H() {
+    <span class="hljs-keyword">return</span> math.multiply(<span class="hljs-number">1</span> / math.sqrt(<span class="hljs-number">2</span>), [
+      [<span class="hljs-number">1</span>, <span class="hljs-number">1</span>],
+      [<span class="hljs-number">1</span>, <span class="hljs-number">-1</span>]
+    ]);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Identity Gate</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> get Id() {
+    <span class="hljs-keyword">return</span> math.eye(<span class="hljs-number">2</span>);
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>S &amp; S Dagger Gate</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> get S() {
+    <span class="hljs-keyword">return</span> [
+      [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+      [<span class="hljs-number">0</span>, i]
+    ];
+  }
+  <span class="hljs-keyword">static</span> get SDagger() {
+    <span class="hljs-keyword">return</span> math.conj(
+      math.transpose(
+        [
+          [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+          [<span class="hljs-number">0</span>, i]
+        ]
+      )
+    );
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>T &amp; T Dagger / Pi over 8 Gate</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">static</span> get T() {
+    <span class="hljs-keyword">return</span> [
+      [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+      [<span class="hljs-number">0</span>, math.pow(math.e, (math.multiply(i, math.pi / <span class="hljs-number">4</span>)))]
+    ];
+  }
+  <span class="hljs-keyword">static</span> get TDagger() {
+    <span class="hljs-keyword">return</span> math.conj(
+      math.transpose(
+        [
+          [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>],
+          [<span class="hljs-number">0</span>, math.pow(math.e, (math.multiply(i, math.pi / <span class="hljs-number">4</span>)))]
+        ]
+      )
+    );
+  }
+
+  <span class="hljs-comment">/* #################################################
+  #                Helper Functions                  #
+  ################################################# */</span>
+  <span class="hljs-keyword">static</span> generateGate(gate, numQubits, qubit1, qubit2 = <span class="hljs-number">1</span>) {
+    <span class="hljs-keyword">if</span> (gate === <span class="hljs-string">'CNOT'</span>) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>Set the control and target qubits</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> control = qubit1;
+      <span class="hljs-keyword">const</span> target = qubit2;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Grab the gates now for easy access in the function</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> identity = math.eye(<span class="hljs-number">2</span>);
+      <span class="hljs-keyword">const</span> X = <span class="hljs-keyword">this</span>.X;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>This matrix is the ‘Control Matrix’. At the end of the gate generation,
+the NaN’s positions will be evaluated to figure out if it should be a
+a 0 or a 1</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> C = [
+        [<span class="hljs-literal">NaN</span>, <span class="hljs-number">0</span>],
+        [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+      ];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Turn the gate order into an array, so that it can be reduced later.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">let</span> gateOrder = [];
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= numQubits; i++) {
+        <span class="hljs-keyword">if</span> (i === control) {
+          gateOrder.push(C);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i === target) {
+          gateOrder.push(X);
+        } <span class="hljs-keyword">else</span> {
+          gateOrder.push(identity);
+        }
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Now the gateOrder array is taken and reduced using the
+‘Kronecker Product’</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">let</span> newGate = gateOrder.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> math.kron(a, b));</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>This needs to now be converted into an array if it is
+returned from math.js as a matrix</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (math.typeof(newGate) === <span class="hljs-string">'Matrix'</span>) {
+        newGate = newGate.toArray();
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Loop through the new matrix and if the NaN’s are in the
+center, then replace with a 0, otherwise, replace with a 1</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; newGate.length; i++) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; newGate[i].length; j++) {
+          <span class="hljs-keyword">if</span> (math.isNaN(newGate[i][j])) {
+            <span class="hljs-keyword">if</span> (i === j) {
+              newGate[i][j] = <span class="hljs-number">1</span>;
+            } <span class="hljs-keyword">else</span> {
+              newGate[i][j] = <span class="hljs-number">0</span>;
+            }
+          }
+        }
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Return the expanded gate.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> newGate;
+    } <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Put the gates here for easy access</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> identity = math.eye(<span class="hljs-number">2</span>);
+      <span class="hljs-keyword">const</span> mainGate = <span class="hljs-keyword">this</span>[gate];</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Again, Turn the gate order into an array, so that it can be
+reduced later.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">let</span> gateOrder = [];
+
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= numQubits; i++) {
+        <span class="hljs-keyword">if</span> (i === qubit1) {
+          gateOrder.push(mainGate);
+        } <span class="hljs-keyword">else</span> {
+          gateOrder.push(identity);
+        }
+      }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Reduce and return the expanded gate.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> gateOrder.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> math.kron(a, b));
+    }
+  }
+
+}
+
+<span class="hljs-built_in">module</span>.exports = gates;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

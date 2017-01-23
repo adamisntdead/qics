@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
 const gates = require('../src/index').gates;
-const math = require('../src/math/math');
+const math = require('mathjs');
 
 /* #########################################
 #                Cases                    #
