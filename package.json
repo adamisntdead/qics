@@ -1,6 +1,6 @@
 {
   "name": "qics",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Javascript Idealistic Quantum Computer Simulation Library",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "build:all": "npm run build && npm run build:umd && npm run build:umd:min",
     "clean": "rimraf lib dist coverage",
     "lint": "eslint src test examples",
-    "test": "mocha --compilers js:babel-register --recursive",
+    "test": "mocha --compilers js:babel-core/register --recursive",
     "test:watch": "npm test -- --watch"
   },
   "repository": {

@@ -1,6 +1,9 @@
 # Changelog
 
 ### 22/01/17 - Version 1.0.1
+ - Fix Test Errors for Node < 5
+
+### 22/01/17 - Version 1.0.1
  - Write README
  - Add Travis Intregration
 
