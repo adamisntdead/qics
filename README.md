@@ -2,8 +2,8 @@
 
 [![GitHub issues](https://img.shields.io/github/issues/adamisntdead/qics.svg)](https://github.com/adamisntdead/qics/issues)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/adamisntdead/qics/master/LICENSE)
-[![Travis](https://img.shields.io/travis/adamisntdead/qics.svg)]()
-[![npm](https://img.shields.io/npm/v/qics.svg)]()
+[![Travis](https://img.shields.io/travis/adamisntdead/qics.svg)](https://travis-ci.org/adamisntdead/qics)
+[![npm](https://img.shields.io/npm/v/qics.svg)](https://www.npmjs.com/package/qics)
 
 Qics is an Idealistic, Quantum Computer Simulation Library.
 It works by holding a Quantum Register as a Matrix,
