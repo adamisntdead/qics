@@ -53,6 +53,7 @@ class gates {
       [0, i]
     ];
   }
+
   static get SDagger() {
     return math.conj(
       math.transpose(
@@ -71,6 +72,7 @@ class gates {
       [0, math.pow(math.e, (math.multiply(i, math.pi / 4)))]
     ];
   }
+
   static get TDagger() {
     return math.conj(
       math.transpose(

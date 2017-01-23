@@ -84,6 +84,8 @@ To deploy the docs to the github pages, run
 ```shell
 git subtree push --prefix docs origin gh-pages
 ```
+To build the docs, run `npm run docs`.
+
 ***
 
 ### Build
