@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>QuantumRegister.js</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="QuantumRegister.html">
+                  QuantumRegister.js
+                </a>
+              
+                
+                <a class="source" href="gates.html">
+                  gates.js
+                </a>
+              
+                
+                <a class="source" href="helper.html">
+                  helper.js
+                </a>
+              
+                
+                <a class="source" href="index.html">
+                  index.js
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>QuantumRegister.js</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mathjs'</span>);
+<span class="hljs-keyword">const</span> weighted = <span class="hljs-built_in">require</span>(<span class="hljs-string">'weighted'</span>);
+<span class="hljs-keyword">const</span> gates = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./gates'</span>);
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Register</span> </span>{</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p>This is the constructor for the Register, it takes a parameter
+<code>numQubits</code> which is the number of Qubits in the register</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	<span class="hljs-keyword">constructor</span>(numQubits) {
+		<span class="hljs-keyword">this</span>.numQubits = numQubits;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>The number of amplitudes needed is 2^n, Where N is the number of qubits.
+The math.zeros function Creates a matrix of 0s, ie. math.zeros(5) = [0,
+0, 0, 0, 0]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.amplitudes = math
+			.zeros(math.pow(<span class="hljs-number">2</span>, numQubits))
+			.toArray();</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Set the chance of getting all Zeros to 1</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.amplitudes[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Set the fact it has not been measured</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.measured = <span class="hljs-literal">false</span>;
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Apply a gate to the register.
+The parameters, <code>gate</code> is a string with the name of the gate from the
+gates class. <code>qubit1</code> is the place in the register of the qubit the gate
+is being applied to. <code>qubit2</code> is, if a CNOT Gate is being used, its the
+target qubit, and qubit1 is the control.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	applyGate(gate, qubit1, qubit2 = <span class="hljs-number">-1</span>) {
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.measured) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>If it has already been measured, then you cannot apply a gate, so an
+Error will be thrown</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Cannot Apply Gate to a Measured Quantum Register'</span>);
+		} <span class="hljs-keyword">else</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Get the gate from the generateGates function, and then multiply the
+amplitude vector against it</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>			<span class="hljs-keyword">const</span> gateMatrix = gates.generateGate(gate,
+				<span class="hljs-keyword">this</span>.numQubits,
+				qubit1,
+				qubit2);
+			<span class="hljs-keyword">this</span>.amplitudes = math.multiply(<span class="hljs-keyword">this</span>.amplitudes, gateMatrix);
+		}
+	}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Measure the qubit register</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>	measure() {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>If it has already been measured, just return that value</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.measured) {
+			<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.value;
+		}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Get a list of probabilities by squaring the absolute value of the
+amplitudes.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">let</span> probabilities = [];
+		math.forEach(<span class="hljs-keyword">this</span>.amplitudes, (val) =&gt; {
+			<span class="hljs-keyword">let</span> probability = math.pow(math.abs(val), <span class="hljs-number">2</span>);
+			probabilities.push(probability);
+		});</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Choose an item by making a list of numbers 0 to the length of the
+probabilities array. Then, use the probabilities array as the weights
+for the picker.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">let</span> results = math
+			.zeros(probabilities.length)
+			.toArray()
+			.map(<span class="hljs-function">(<span class="hljs-params">val, index</span>) =&gt;</span> index);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Convert to Binary, add extra 0’s if needed.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.value = <span class="hljs-built_in">Number</span>(weighted.select(results, probabilities)).toString(<span class="hljs-number">2</span>);
+
+		<span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.value.length &lt; <span class="hljs-keyword">this</span>.numQubits) {
+			<span class="hljs-keyword">this</span>.value = <span class="hljs-string">'0'</span>.repeat(<span class="hljs-keyword">this</span>.numQubits - <span class="hljs-keyword">this</span>.value.length) + <span class="hljs-keyword">this</span>.value;
+		}
+
+		<span class="hljs-keyword">this</span>.measured = <span class="hljs-literal">true</span>;
+		<span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.value;
+	}
+}
+
+<span class="hljs-built_in">module</span>.exports = Register;</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>
