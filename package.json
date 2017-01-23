@@ -5,9 +5,9 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir lib",
-    "build:umd": "webpack src/index.js dist/qics.js",
-    "build:umd:min": "cross-env NODE_ENV=production webpack src/index.js dist/qics.min.js",
-    "build:all": "npm run build && npm run build:umd && npm run build:umd:min && npm run docs",
+    "build:var": "webpack src/index.js dist/qics.js",
+    "build:var:min": "cross-env NODE_ENV=production webpack src/index.js dist/qics.min.js",
+    "build:all": "npm run build && npm run build:var && npm run build:var:min && npm run docs",
     "clean": "rimraf lib dist coverage docs",
     "lint": "eslint src test examples",
     "test": "mocha --compilers js:babel-core/register --recursive",

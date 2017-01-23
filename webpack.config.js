@@ -8,7 +8,7 @@ var config = {
   },
   output: {
     library: 'qics',
-    libraryTarget: 'umd'
+    libraryTarget: 'var'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
