@@ -95,7 +95,7 @@ class gates {
 
       // Grab the gates now for easy access in the function
       const identity = math.eye(2);
-      const X = this.X;
+      const X = math.matrix(this.X);
 
       // This matrix is the 'Control Matrix'. At the end of the gate generation,
       // the NaN's positions will be evaluated to figure out if it should be a
@@ -130,17 +130,18 @@ class gates {
 
       // Loop through the new matrix and if the NaN's are in the
       // center, then replace with a 0, otherwise, replace with a 1
-      for (let i = 0; i < newGate.length; i++) {
-        for (let j = 0; j < newGate[i].length; j++) {
-          if (math.isNaN(newGate[i][j])) {
-            if (i === j) {
-              newGate[i][j] = 1;
-            } else {
-              newGate[i][j] = 0;
-            }
+      newGate = math.map(newGate, (val, index) => {
+        if (math.isNaN(val)) {
+          if (index[0] === index[1]) {
+            return 1;
+          } else {
+            return 0;
           }
+        } else {
+          return val;
         }
-      }
+      });
+
       // Return the expanded gate.
       return newGate;
     } else {
