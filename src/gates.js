@@ -1,4 +1,5 @@
 const math = require('mathjs');
+const helper = require('./helper');
 
 // Complex number i and -i for easy access
 const i = math.complex(0, 1);
@@ -169,6 +170,12 @@ class gates {
         // Put the gates here for easy access
         const identity = math.eye(2, 'sparse');
         const mainGate = math.matrix(gate, 'sparse');
+
+        // Gate must be unitary so check here
+        if (!helper.isUnitary(mainGate)) {
+          // It's not unitary, throw an Error
+          throw new Error('The gate supplied to generateGate is not unitary');
+        }
 
         // Again, Turn the gate order into an array, so that it can be
         // reduced later.
