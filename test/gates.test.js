@@ -33,6 +33,23 @@ describe('GenerateGate', () => {
       [0, 0, 0, 0, 0, 0, 1, 0]
     ])).to.equal(true);
   });
+
+  it('should generate from an inputed gate', () => {
+    // Gonna use my own X gate
+    expect(math.deepEqual(gates.generateGate('X', 2, 1), gates.generateGate([
+      [0, 1],
+      [1, 0]
+    ], 2, 1))).to.equal(true);
+  });
+
+  it('should return an identity gate if the input isn\'t corrent', () => {
+    // Test with the input of a number, doesn't make sense so
+    // should be an id gate
+    expect(math.deepEqual(
+      math.eye(2),
+      gates.generateGate(7, 1, 1)
+    )).to.equal(true);
+  });
 });
 
 describe('Gate Arrays', () => {
