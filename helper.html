@@ -112,10 +112,66 @@
             </div>
             
             <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">return</span> total;
+};</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Checks to if a matrix is unitary. Accepts a mathjs matrix or
+array, and returns true or false accordingly</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> isUnitary = <span class="hljs-function">(<span class="hljs-params">matrix</span>) =&gt;</span> {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>A Square matrix is unitary if its conjugate transpose is
+equal to its inverse</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">const</span> givenMatrix = math.matrix(matrix, <span class="hljs-string">'sparse'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Check if its Square</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  <span class="hljs-keyword">if</span> ((math.size(givenMatrix))[<span class="hljs-number">0</span>] !== (math.size(givenMatrix))[<span class="hljs-number">1</span>]) {
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+  }
+
+  <span class="hljs-keyword">const</span> conjugateTranspose = math.transpose(math.conj(givenMatrix));
+  <span class="hljs-keyword">const</span> inverse = math.inv(givenMatrix);
+
+  <span class="hljs-keyword">return</span> math.deepEqual(inverse, conjugateTranspose);
 };
 
 <span class="hljs-built_in">module</span>.exports = {
-  <span class="hljs-attr">sum</span>: sum
+  <span class="hljs-attr">sum</span>: sum,
+  <span class="hljs-attr">isUnitary</span>: isUnitary
 };</pre></div></div>
             
         </li>
