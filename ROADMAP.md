@@ -1,7 +1,6 @@
 # Roadmap / Planned Changes
 ***
 ### Features
-- Add your own gates
 - Output to latex
 - Draw Gate Diagrams
 - Qudits

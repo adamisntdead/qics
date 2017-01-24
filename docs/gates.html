@@ -63,7 +63,8 @@
               
             </div>
             
-            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mathjs'</span>);</pre></div></div>
+            <div class="content"><div class='highlight'><pre><span class="hljs-keyword">const</span> math = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mathjs'</span>);
+<span class="hljs-keyword">const</span> helper = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./helper'</span>);</pre></div></div>
             
         </li>
         
@@ -203,6 +204,7 @@
       [<span class="hljs-number">0</span>, i]
     ];
   }
+
   <span class="hljs-keyword">static</span> get SDagger() {
     <span class="hljs-keyword">return</span> math.conj(
       math.transpose(
@@ -233,6 +235,7 @@
       [<span class="hljs-number">0</span>, math.pow(math.e, (math.multiply(i, math.pi / <span class="hljs-number">4</span>)))]
     ];
   }
+
   <span class="hljs-keyword">static</span> get TDagger() {
     <span class="hljs-keyword">return</span> math.conj(
       math.transpose(
@@ -248,7 +251,8 @@
   #                Helper Functions                  #
   ################################################# */</span>
   <span class="hljs-keyword">static</span> generateGate(gate, numQubits, qubit1, qubit2 = <span class="hljs-number">1</span>) {
-    <span class="hljs-keyword">if</span> (gate === <span class="hljs-string">'CNOT'</span>) {</pre></div></div>
+    <span class="hljs-keyword">if</span> (math.typeof(gate) === <span class="hljs-string">'string'</span>) {
+      <span class="hljs-keyword">if</span> (gate === <span class="hljs-string">'CNOT'</span>) {</pre></div></div>
             
         </li>
         
@@ -263,8 +267,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> control = qubit1;
-      <span class="hljs-keyword">const</span> target = qubit2;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">const</span> control = qubit1;
+        <span class="hljs-keyword">const</span> target = qubit2;</pre></div></div>
             
         </li>
         
@@ -279,8 +283,8 @@
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> identity = math.eye(<span class="hljs-number">2</span>);
-      <span class="hljs-keyword">const</span> X = <span class="hljs-keyword">this</span>.X;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">const</span> identity = math.eye(<span class="hljs-number">2</span>, <span class="hljs-string">'sparse'</span>);
+        <span class="hljs-keyword">const</span> X = math.matrix(<span class="hljs-keyword">this</span>.X, <span class="hljs-string">'sparse'</span>);</pre></div></div>
             
         </li>
         
@@ -291,16 +295,16 @@
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-12">&#182;</a>
               </div>
-              <p>This matrix is the ‘Control Matrix’. At the end of the gate generation,
-the NaN’s positions will be evaluated to figure out if it should be a
-a 0 or a 1</p>
+              <p>This matrix is the ‘Control Matrix’. At the end of the gate
+generation, the NaN’s positions will be evaluated to figure
+out if it should be a 0 or a 1</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> C = [
-        [<span class="hljs-literal">NaN</span>, <span class="hljs-number">0</span>],
-        [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
-      ];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">const</span> C = math.matrix([
+          [<span class="hljs-literal">NaN</span>, <span class="hljs-number">0</span>],
+          [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]
+        ], <span class="hljs-string">'sparse'</span>);</pre></div></div>
             
         </li>
         
@@ -315,16 +319,16 @@ a 0 or a 1</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">let</span> gateOrder = [];
-      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= numQubits; i++) {
-        <span class="hljs-keyword">if</span> (i === control) {
-          gateOrder.push(C);
-        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i === target) {
-          gateOrder.push(X);
-        } <span class="hljs-keyword">else</span> {
-          gateOrder.push(identity);
-        }
-      }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">let</span> gateOrder = [];
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= numQubits; i++) {
+          <span class="hljs-keyword">if</span> (i === control) {
+            gateOrder.push(C);
+          } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (i === target) {
+            gateOrder.push(X);
+          } <span class="hljs-keyword">else</span> {
+            gateOrder.push(identity);
+          }
+        }</pre></div></div>
             
         </li>
         
@@ -340,7 +344,10 @@ a 0 or a 1</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">let</span> newGate = gateOrder.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> math.kron(a, b));</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">let</span> newGate = math.matrix(
+          gateOrder.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> math.kron(a, b)),
+          <span class="hljs-string">'sparse'</span>
+        );</pre></div></div>
             
         </li>
         
@@ -351,14 +358,22 @@ a 0 or a 1</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-15">&#182;</a>
               </div>
-              <p>This needs to now be converted into an array if it is
-returned from math.js as a matrix</p>
+              <p>Loop through the new matrix and if the NaN’s are in the
+center, then replace with a 0, otherwise, replace with a 1</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">if</span> (math.typeof(newGate) === <span class="hljs-string">'Matrix'</span>) {
-        newGate = newGate.toArray();
-      }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        newGate = math.map(newGate, (val, index) =&gt; {
+          <span class="hljs-keyword">if</span> (math.isNaN(val)) {
+            <span class="hljs-keyword">if</span> (index[<span class="hljs-number">0</span>] === index[<span class="hljs-number">1</span>]) {
+              <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+            } <span class="hljs-keyword">else</span> {
+              <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+            }
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> val;
+          }
+        });</pre></div></div>
             
         </li>
         
@@ -369,22 +384,12 @@ returned from math.js as a matrix</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-16">&#182;</a>
               </div>
-              <p>Loop through the new matrix and if the NaN’s are in the
-center, then replace with a 0, otherwise, replace with a 1</p>
+              <p>Return the expanded gate.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; newGate.length; i++) {
-        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; newGate[i].length; j++) {
-          <span class="hljs-keyword">if</span> (math.isNaN(newGate[i][j])) {
-            <span class="hljs-keyword">if</span> (i === j) {
-              newGate[i][j] = <span class="hljs-number">1</span>;
-            } <span class="hljs-keyword">else</span> {
-              newGate[i][j] = <span class="hljs-number">0</span>;
-            }
-          }
-        }
-      }</pre></div></div>
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> newGate;
+      } <span class="hljs-keyword">else</span> {</pre></div></div>
             
         </li>
         
@@ -395,12 +400,12 @@ center, then replace with a 0, otherwise, replace with a 1</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-17">&#182;</a>
               </div>
-              <p>Return the expanded gate.</p>
+              <p>Put the gates here for easy access</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> newGate;
-    } <span class="hljs-keyword">else</span> {</pre></div></div>
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">const</span> identity = math.eye(<span class="hljs-number">2</span>, <span class="hljs-string">'sparse'</span>);
+          <span class="hljs-keyword">const</span> mainGate = math.matrix(<span class="hljs-keyword">this</span>[gate], <span class="hljs-string">'sparse'</span>);</pre></div></div>
             
         </li>
         
@@ -411,12 +416,20 @@ center, then replace with a 0, otherwise, replace with a 1</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-18">&#182;</a>
               </div>
-              <p>Put the gates here for easy access</p>
+              <p>Again, Turn the gate order into an array, so that it can be
+reduced later.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">const</span> identity = math.eye(<span class="hljs-number">2</span>);
-      <span class="hljs-keyword">const</span> mainGate = <span class="hljs-keyword">this</span>[gate];</pre></div></div>
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">let</span> gateOrder = [];
+
+          <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= numQubits; i++) {
+            <span class="hljs-keyword">if</span> (i === qubit1) {
+              gateOrder.push(mainGate);
+            } <span class="hljs-keyword">else</span> {
+              gateOrder.push(identity);
+            }
+          }</pre></div></div>
             
         </li>
         
@@ -427,20 +440,14 @@ center, then replace with a 0, otherwise, replace with a 1</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-19">&#182;</a>
               </div>
-              <p>Again, Turn the gate order into an array, so that it can be
-reduced later.</p>
+              <p>Reduce and return the expanded gate.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">let</span> gateOrder = [];
-
-      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= numQubits; i++) {
-        <span class="hljs-keyword">if</span> (i === qubit1) {
-          gateOrder.push(mainGate);
-        } <span class="hljs-keyword">else</span> {
-          gateOrder.push(identity);
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">return</span> gateOrder.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> math.kron(a, b));
         }
-      }</pre></div></div>
+    } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (math.typeof(gate) === <span class="hljs-string">'Matrix'</span>
+      || math.typeof(gate) === <span class="hljs-string">'Array'</span>) {</pre></div></div>
             
         </li>
         
@@ -451,14 +458,112 @@ reduced later.</p>
               <div class="pilwrap ">
                 <a class="pilcrow" href="#section-20">&#182;</a>
               </div>
+              <p>This expand / generates a gate from a user inputed matrix</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Put the gates here for easy access</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">const</span> identity = math.eye(<span class="hljs-number">2</span>, <span class="hljs-string">'sparse'</span>);
+        <span class="hljs-keyword">const</span> mainGate = math.matrix(gate, <span class="hljs-string">'sparse'</span>);</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Gate must be unitary so check here</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">if</span> (!helper.isUnitary(mainGate)) {</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>It’s not unitary, throw an Error</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>          <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'The gate supplied to generateGate is not unitary'</span>);
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Again, Turn the gate order into an array, so that it can be
+reduced later.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">let</span> gateOrder = [];
+
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= numQubits; i++) {
+          <span class="hljs-keyword">if</span> (i === qubit1) {
+            gateOrder.push(mainGate);
+          } <span class="hljs-keyword">else</span> {
+            gateOrder.push(identity);
+          }
+        }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
               <p>Reduce and return the expanded gate.</p>
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">return</span> gateOrder.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> math.kron(a, b));
-    }
-  }
+            <div class="content"><div class='highlight'><pre>        <span class="hljs-keyword">return</span> gateOrder.reduce(<span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span> math.kron(a, b));
+    }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Doesn’t match a default case, return an Id gate</p>
 
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">return</span> math.eye(math.pow(<span class="hljs-number">2</span>, numQubits), <span class="hljs-string">'sparse'</span>);
+  }
 }
 
 <span class="hljs-built_in">module</span>.exports = gates;</pre></div></div>

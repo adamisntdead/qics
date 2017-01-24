@@ -1,6 +1,6 @@
 {
   "name": "qics",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A Javascript Idealistic Quantum Computer Simulation Library",
   "main": "lib/index.js",
   "scripts": {

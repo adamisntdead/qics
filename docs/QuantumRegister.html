@@ -101,9 +101,9 @@ The math.zeros function Creates a matrix of 0s, ie. math.zeros(5) = [0,
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.amplitudes = math
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.amplitudes = math.matrix([math
 			.zeros(math.pow(<span class="hljs-number">2</span>, numQubits))
-			.toArray();</pre></div></div>
+			.toArray()], <span class="hljs-string">'sparse'</span>);</pre></div></div>
             
         </li>
         
@@ -118,7 +118,7 @@ The math.zeros function Creates a matrix of 0s, ie. math.zeros(5) = [0,
 
             </div>
             
-            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.amplitudes[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>;</pre></div></div>
+            <div class="content"><div class='highlight'><pre>		<span class="hljs-keyword">this</span>.amplitudes = math.subset(<span class="hljs-keyword">this</span>.amplitudes, math.index(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>), <span class="hljs-number">1</span>);</pre></div></div>
             
         </li>
         
@@ -191,6 +191,7 @@ amplitude vector against it</p>
 				<span class="hljs-keyword">this</span>.numQubits,
 				qubit1,
 				qubit2);
+
 			<span class="hljs-keyword">this</span>.amplitudes = math.multiply(<span class="hljs-keyword">this</span>.amplitudes, gateMatrix);
 		}
 	}</pre></div></div>
