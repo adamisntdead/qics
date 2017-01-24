@@ -94,16 +94,16 @@ class gates {
       const target = qubit2;
 
       // Grab the gates now for easy access in the function
-      const identity = math.eye(2);
-      const X = math.matrix(this.X);
+      const identity = math.eye(2, 'sparse');
+      const X = math.matrix(this.X, 'sparse');
 
       // This matrix is the 'Control Matrix'. At the end of the gate generation,
       // the NaN's positions will be evaluated to figure out if it should be a
       // a 0 or a 1
-      const C = [
+      const C = math.matrix([
         [NaN, 0],
         [0, 1]
-      ];
+      ], 'sparse');
 
       // Turn the gate order into an array, so that it can be reduced later.
       let gateOrder = [];
@@ -120,13 +120,10 @@ class gates {
 
       // Now the gateOrder array is taken and reduced using the
       // 'Kronecker Product'
-      let newGate = gateOrder.reduce((a, b) => math.kron(a, b));
-
-      // This needs to now be converted into an array if it is
-      // returned from math.js as a matrix
-      if (math.typeof(newGate) === 'Matrix') {
-        newGate = newGate.toArray();
-      }
+      let newGate = math.matrix(
+        gateOrder.reduce((a, b) => math.kron(a, b)),
+        'sparse'
+      );
 
       // Loop through the new matrix and if the NaN's are in the
       // center, then replace with a 0, otherwise, replace with a 1
@@ -146,8 +143,8 @@ class gates {
       return newGate;
     } else {
       // Put the gates here for easy access
-      const identity = math.eye(2);
-      const mainGate = this[gate];
+      const identity = math.eye(2, 'sparse');
+      const mainGate = math.matrix(this[gate], 'sparse');
 
       // Again, Turn the gate order into an array, so that it can be
       // reduced later.

@@ -10,11 +10,12 @@ class Register {
 		// The number of amplitudes needed is 2^n, Where N is the number of qubits.
 		// The math.zeros function Creates a matrix of 0s, ie. math.zeros(5) = [0,
 		// 0, 0, 0, 0]
-		this.amplitudes = math
+		this.amplitudes = math.matrix([math
 			.zeros(math.pow(2, numQubits))
-			.toArray();
+			.toArray()], 'sparse');
+
 		// Set the chance of getting all Zeros to 1
-		this.amplitudes[0] = 1;
+		this.amplitudes = math.subset(this.amplitudes, math.index(0, 0), 1);
 		// Set the fact it has not been measured
 		this.measured = false;
 	}
@@ -36,6 +37,7 @@ class Register {
 				this.numQubits,
 				qubit1,
 				qubit2);
+
 			this.amplitudes = math.multiply(this.amplitudes, gateMatrix);
 		}
 	}
