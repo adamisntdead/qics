@@ -7,7 +7,7 @@ lib-cov
 *.pid
 *.gz
 *.swp
-
+.nyc_output
 pids
 logs
 results
@@ -26,3 +26,5 @@ bower_components
 # OS metadata
 .DS_Store
 Thumbs.db
+
+coverage

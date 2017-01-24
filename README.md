@@ -1,11 +1,11 @@
 # Qics - _Quantum Idealistic Computer Simulator_
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/adamisntdead/qics.svg)](https://greenkeeper.io/)
-
 [![GitHub issues](https://img.shields.io/github/issues/adamisntdead/qics.svg)](https://github.com/adamisntdead/qics/issues)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/adamisntdead/qics/master/LICENSE)
 [![Travis](https://img.shields.io/travis/adamisntdead/qics.svg)](https://travis-ci.org/adamisntdead/qics)
 [![npm](https://img.shields.io/npm/v/qics.svg)](https://www.npmjs.com/package/qics)
+[![Greenkeeper badge](https://badges.greenkeeper.io/adamisntdead/qics.svg)](https://greenkeeper.io/)
+
 
 Qics is an Idealistic, Quantum Computer Simulation Library.
 It works by holding a Quantum Register as a Matrix,
@@ -57,7 +57,7 @@ __Example simulation:__
 const qics = require('qics');
 
 // Create a new Quantum Register with 3 Qubits
-const reg = new qicks.Register(3);
+const reg = new qics.Register(3);
 
 // Apply some gates.
 // Hadamard Gate
@@ -70,6 +70,23 @@ reg.applyGate('CNOT', 1, 3) ;
 console.log(reg.measure());
 ```
 
+You can also use your own gates, by inputing them as an Array or Math.Matrix object
+to the applyGate function.
+
+```javascript
+// Manually Add A NOT Gate
+
+const reg = new qics.Register(2);
+
+reg.applyGate([
+  [0, 1],
+  [1, 0]
+], 1);
+
+
+// Now measure the register. Should return either "10"
+console.log(reg.measure());
+```
 ***
 
 ### Documentation
@@ -84,6 +101,8 @@ To deploy the docs to the github pages, run
 ```shell
 git subtree push --prefix docs origin gh-pages
 ```
+To build the docs, run `npm run docs`.
+
 ***
 
 ### Build

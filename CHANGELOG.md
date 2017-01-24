@@ -1,5 +1,10 @@
 # Changelog
 
+### 24/01/17 - Version 1.0.3
+ - Add user inputed gates to applyGate() and generateGate()
+ - Switch to Sparse matrices for quicker operation
+ - General Bug Fixes
+
 ### 23/01/17 - Version 1.0.2
  - Change to standard Math.js module
  - Add Docco Documentation
