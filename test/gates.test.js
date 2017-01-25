@@ -50,6 +50,13 @@ describe('GenerateGate', () => {
       gates.generateGate(7, 1, 1)
     )).to.equal(true);
   });
+
+  it('should throw error when expanding a non unitary gate', () => {
+    expect(gates.generateGate.bind(gates, [
+      [1, 2],
+      [3, 3]
+    ], 1)).to.throw(Error);
+  });
 });
 
 describe('Gate Arrays', () => {
