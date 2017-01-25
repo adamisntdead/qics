@@ -1,17 +1,5 @@
 const math = require('mathjs');
 
-// Finds the sum of all the elements in an array
-const sum = (array) => {
-  let total = 0;
-  math.forEach(array, (val) => {
-    // Itterate through the array, adding to the total variable
-    total += val;
-  });
-
-  // Return the sum
-  return total;
-};
-
 // Checks to if a matrix is unitary. Accepts a mathjs matrix or
 // array, and returns true or false accordingly
 const isUnitary = (matrix) => {
@@ -30,7 +18,9 @@ const isUnitary = (matrix) => {
   return math.deepEqual(inverse, conjugateTranspose);
 };
 
+const isRegister = (reg) => reg.constructor.name === 'Register';
+
 module.exports = {
-  sum: sum,
-  isUnitary: isUnitary
+  isUnitary: isUnitary,
+  isRegister: isRegister
 };
