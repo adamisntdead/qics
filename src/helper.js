@@ -18,6 +18,8 @@ const isUnitary = (matrix) => {
   return math.deepEqual(inverse, conjugateTranspose);
 };
 
+// Check if a given variable is a Quantum Register by checking
+// if its constructor name is Register
 const isRegister = (reg) => reg.constructor.name === 'Register';
 
 module.exports = {
