@@ -154,3 +154,25 @@ Random.applyGate('T', 3);
 Random.applyGate('TDagger', 2);
 
 console.log('Big Circut: |' + Random.measure() + '>');
+
+// #############################################
+// #               Add Functions               #
+// #############################################
+// This will create a new subclass of register with a
+// function, notAll which will add a NOT gate to every
+// qubit in the register.
+// NOTE: Uses ES2015 Class Syntax
+
+
+class betterRegister extends qics.Register {
+    notAll() {
+        for (let i = 1; i <= this.numQubits; i++) {
+            this.applyGate('X', i);
+        }
+    }
+}
+
+const reg = new betterRegister(3);
+reg.notAll();
+
+console.log(reg.measure());
