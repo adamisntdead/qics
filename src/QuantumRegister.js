@@ -41,6 +41,15 @@ class Register {
 			this.amplitudes = math.multiply(this.amplitudes, gateMatrix);
 		}
 	}
+
+	// Apply a gate to ever qubit in a register
+	applyGateToAll(gate) {
+		// Loop through the number of qubits, and applyGate to i.
+		for (let i = 1; i <= this.numQubits; i++) {
+			applyGate(gate, i);
+		}
+	}
+
 	// Measure the qubit register
 	measure() {
 		// If it has already been measured, just return that value
