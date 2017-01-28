@@ -46,7 +46,7 @@ class Register {
 	applyGateToAll(gate) {
 		// Loop through the number of qubits, and applyGate to i.
 		for (let i = 1; i <= this.numQubits; i++) {
-			applyGate(gate, i);
+			this.applyGate(gate, i);
 		}
 	}
 

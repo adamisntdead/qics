@@ -26,6 +26,10 @@ CNOT3.applyGate('X', 1);
 CNOT3.applyGate('X', 2);
 CNOT3.applyGate('CNOT', 1, 2);
 
+// Apply to all
+const ALL = new Register(10);
+ALL.applyGateToAll('X');
+
 describe('Register', () => {
   it('should support a single qubit in the register', () => {
     expect(X.measure()).to.equal('1');
@@ -45,6 +49,10 @@ describe('Register', () => {
     expect(CNOT1.measure()).to.equal('000');
     expect(CNOT2.measure()).to.equal('1010');
     expect(CNOT3.measure()).to.equal('10');
+  });
+
+  it('should support apply a gate to every qubit in the register', () => {
+    expect(ALL.measure()).to.equal('1111111111');
   });
 
   it('should throw error when applying a gate to measured register', () => {
