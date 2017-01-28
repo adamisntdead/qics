@@ -43,12 +43,4 @@ describe('isUnitary', () => {
     expect(helper.isUnitary(alsoUnitary)).to.equal(true);
     expect(helper.isUnitary(notUnitary)).to.equal(false);
   });
-
-  it('Should Throw an Error When The Gate Is Non-Square', () => {
-    expect(helper.isUnitary.bind(helper, [
-      [1, 0],
-      [0, 1],
-      [0, 0]
-    ])).to.throw(Error);
-  });
 });
