@@ -10,9 +10,11 @@ class Register {
 		// The number of amplitudes needed is 2^n, Where N is the number of qubits.
 		// The math.zeros function Creates a matrix of 0s, ie. math.zeros(5) = [0,
 		// 0, 0, 0, 0]
-		this.amplitudes = math.matrix([math
-			.zeros(math.pow(2, numQubits))
-			.toArray()], 'sparse');
+		this.amplitudes = math.matrix([
+			math
+				.zeros(math.pow(2, numQubits))
+				.toArray()
+		], 'sparse');
 
 		// Set the chance of getting all Zeros to 1
 		this.amplitudes = math.subset(this.amplitudes, math.index(0, 0), 1);
@@ -20,11 +22,11 @@ class Register {
 		this.measured = false;
 	}
 
-	// Apply a gate to the register.
-	// The parameters, `gate` is a string with the name of the gate from the
-	// gates class. `qubit1` is the place in the register of the qubit the gate
-	// is being applied to. `qubit2` is, if a CNOT Gate is being used, its the
-	// target qubit, and qubit1 is the control.
+	// Apply a gate to the register. The parameters, `gate` is a string with
+	// the name of the gate from the gates class. `qubit1` is the place in the
+	// register of the qubit the gate is being applied to. `qubit2` is, if a
+	// CNOT Gate is being used, its the target qubit, and qubit1 is the
+	// control.
 	applyGate(gate, qubit1, qubit2 = -1) {
 		if (this.measured) {
 			// If it has already been measured, then you cannot apply a gate, so an
@@ -33,10 +35,7 @@ class Register {
 		} else {
 			// Get the gate from the generateGates function, and then multiply the
 			// amplitude vector against it
-			const gateMatrix = gates.generateGate(gate,
-				this.numQubits,
-				qubit1,
-				qubit2);
+			const gateMatrix = gates.generateGate(gate, this.numQubits, qubit1, qubit2);
 
 			this.amplitudes = math.multiply(this.amplitudes, gateMatrix);
 		}
@@ -73,7 +72,6 @@ class Register {
 			.toArray()
 			.map((val, index) => index);
 
-
 		// Convert to Binary, add extra 0's if needed.
 		this.value = Number(weighted.select(results, probabilities)).toString(2);
 
@@ -83,6 +81,33 @@ class Register {
 
 		this.measured = true;
 		return this.value;
+	}
+
+	// Get a dump of the state of the register.
+	// NOTE: This wouldn't be accessable in an actual quatum computer, as the
+	// internal state cannot be observed.
+	dump() {
+		// Grab the amplitudes, convert from a sparse matrix to an an array.
+		let amps = this
+			.amplitudes
+			.toArray();
+		amps = amps[0];
+
+		return amps.map((amp, index) => {
+			// Add the index to the array.
+			return [index, amp];
+		}).filter((ampItem) => {
+			// Only have information about the amplitudes that arn't 0
+			return ampItem[1] != 0;
+		}).map(ampItem => {
+			// Convert the index to binary.
+			ampItem[0] = ampItem[0].toString(2);
+
+			if (ampItem[0].length < this.numQubits) {
+				ampItem[0] = '0'.repeat(this.numQubits - ampItem[0].length) + ampItem[0];
+			}
+			return ampItem
+		});
 	}
 }
 

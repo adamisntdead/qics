@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 
 const Register = require('../src/index').Register;
+const math = require('mathjs');
 
 /* #########################################
 #                Cases                    #
@@ -52,6 +53,11 @@ describe('Register', () => {
   });
 
   it('should support apply a gate to every qubit in the register', () => {
+    expect(math.deepEqual(X.dump(), [['1', 1]])).to.equal(true);
+
+  });
+
+  it('dump the correct values', () => {
     expect(ALL.measure()).to.equal('1111111111');
   });
 
