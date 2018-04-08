@@ -35,7 +35,7 @@
   "homepage": "https://github.com/adamisntdead/qics",
   "dependencies": {
     "docco": "^0.7.0",
-    "mathjs": "^3.20.2",
+    "mathjs": "^4.1.0",
     "weighted": "^0.3.0"
   },
   "devDependencies": {
